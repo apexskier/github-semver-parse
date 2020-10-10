@@ -2,6 +2,20 @@
 
 This GitHub Action parses semver strings.
 
+## Outputs
+
+**major**: The major version component.
+
+**minor**: The minor version component.
+
+**patch**: The patch version component.
+
+**prerelease**: The merged prerelease component of the version.
+
+**build**: The merged build component of the version.
+
+**version**: The parsed, validated semver string. Empty if not valid.
+
 ## Example
 
 ```yml
@@ -38,3 +52,7 @@ jobs:
           release_name: ${{ steps.version.outputs.VERSION }}
           prerelease: ${{ !!steps.semver.outputs.prerelease }}
 ```
+
+## Versions
+
+Workflows will automatically update the tags `v1` and `latest`, allowing you to reference one of those instead of locking to a specific release.
