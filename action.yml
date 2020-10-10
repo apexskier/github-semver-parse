@@ -1,7 +1,7 @@
 name: Semver Parser
 description: Parse a semantic version
 branding:
-  icon: tool
+  icon: book-open
   color: white
 inputs:
   version:
