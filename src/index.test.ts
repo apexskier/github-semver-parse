@@ -9,7 +9,7 @@ test("main test", async () => {
 
   require("./index");
 
-  await new Promise((resolve) => setImmediate(() => resolve()));
+  await new Promise<void>((resolve) => setImmediate(() => resolve()));
 
   expect(core.setOutput.mock.calls).toMatchInlineSnapshot(`
     Array [
