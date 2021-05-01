@@ -23,7 +23,7 @@
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.2.7",
     "semver": "^7.3.5"
   },
   "devDependencies": {
