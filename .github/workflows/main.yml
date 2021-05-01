@@ -33,7 +33,7 @@ jobs:
           || github.event_name != 'pull_request'
         run: yarn lint
 
-      - name: Fix
+      - name: Fix (dependency updates)
         if: |
           contains(github.event.pull_request.labels.*.name, 'dependencies')
           && github.event_name == 'pull_request'
@@ -45,7 +45,7 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Add and commit
+      - name: Add and commit (dependency updates)
         uses: EndBug/add-and-commit@v7.2.0
         if: |
           contains(github.event.pull_request.labels.*.name, 'dependencies')
@@ -59,11 +59,15 @@ jobs:
           git status --porcelain
           test -z "$(git status --porcelain)"
 
-      - name: Auto merge
+      - name: Auto merge (dependency updates)
         uses: pascalgn/automerge-action@v0.13.1
+        if: |
+          contains(github.event.pull_request.labels.*.name, 'dependencies')
+          && github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: squash
+          MERGE_LABELS: ""
           MERGE_FILTER_AUTHOR: dependabot-preview
           MERGE_FORKS: false
           MERGE_DELETE_BRANCH: true
