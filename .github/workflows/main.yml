@@ -68,6 +68,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: squash
           MERGE_LABELS: ""
-          MERGE_FILTER_AUTHOR: dependabot-preview
+          MERGE_FILTER_AUTHOR: dependabot-preview[bot]
           MERGE_FORKS: false
           MERGE_DELETE_BRANCH: true
