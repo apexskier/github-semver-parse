@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: squash
           MERGE_LABELS: ""
-          MERGE_FILTER_AUTHOR: dependabot-preview[bot]
+          MERGE_FILTER_AUTHOR: dependabot[bot]
           MERGE_FORKS: false
           MERGE_DELETE_BRANCH: true
 
@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: "15"
 
       - name: Install dependencies
         run: yarn
