@@ -1,35 +1,22 @@
-name: Dependency management
-# see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
-# for more details on why and how
+name: Dependabot update
 
 on:
   pull_request_target:
+    branches:
+      - main
 
 jobs:
-  auto-merge:
-    runs-on: ubuntu-latest
-    needs: build-and-update
-
-    steps:
-      - name: Auto merge (dependency updates)
-        uses: pascalgn/automerge-action@v0.13.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_METHOD: squash
-          MERGE_LABELS: ""
-          MERGE_FILTER_AUTHOR: dependabot[bot]
-          MERGE_FORKS: false
-          MERGE_DELETE_BRANCH: true
-
   build-and-update:
-    runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    environment: dependabot_update
 
     steps:
       - uses: actions/checkout@v2
         with:
           # use a separate token to allow the push to trigger builds
           token: ${{ secrets.DEPENDABOT_GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v1
