@@ -31,11 +31,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Get the version
         id: version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
         shell: bash
 
       - uses: apexskier/github-semver-parse@v1
@@ -44,12 +44,13 @@ jobs:
           version: ${{ steps.version.outputs.VERSION }}
 
       - name: Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
+          run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+          # must use a separate token, not the built-in one to trigger subsequent builds
           GITHUB_TOKEN: ${{ secrets.RELEASE_GH_TOKEN }}
         with:
           tag_name: ${{ steps.version.outputs.VERSION }}
-          release_name: ${{ steps.version.outputs.VERSION }}
           prerelease: ${{ !!steps.semver.outputs.prerelease }}
 ```
 
