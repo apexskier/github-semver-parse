@@ -24,7 +24,7 @@ jobs:
 
       - name: Tag
         if: ${{ !steps.semver.outputs.prerelease && steps.semver.outputs.version }}
-        uses: richardsimko/update-tag@v1.0.4
+        uses: richardsimko/update-tag@v1.0.11
         with:
           tag_name: ${{ format('v{0}', steps.semver.outputs.major) }}
         env:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Tag latest
         if: ${{ !steps.semver.outputs.prerelease && steps.semver.outputs.version }}
-        uses: richardsimko/update-tag@v1.0.4
+        uses: richardsimko/update-tag@v1.0.11
         with:
           tag_name: latest
         env:
